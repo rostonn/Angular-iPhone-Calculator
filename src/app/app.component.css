@@ -1,0 +1,86 @@
+/* Media Queries */
+*{
+    font-family: 'Roboto Mono', monospace;
+}
+@media screen and (min-width:1000px){
+    html{
+        font-size: 20px;
+    }
+    .calculatorBox{
+        width:60vw;
+        height:80vh;
+    }
+    .answer{
+        width:60vw;
+        height:20vh;
+        font-size: 8em;
+    }
+}
+
+@media screen and (max-width:1000px){
+    html{
+        font-size: 10px;
+    }
+    .calculatorBox{
+        width:100vw;
+        height:80vh;
+    }
+    .answer{
+        width:100vw;
+        height:20vh;
+        font-size: 6em;
+
+    }
+    /*.number{
+        font-size:2em;
+    }*/
+}
+
+/*
+.answer_number{
+    font-size: 7em;
+}*/
+.square{
+    border:0px solid black;
+    width:25%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: 1px solid black;
+}
+
+.number{
+    font-size: 2em;
+}
+
+.calculatorBox{
+    display:flex;
+    /*width:60vw;
+    height: 80vh;*/
+    flex-direction: row;
+    flex-flow: row wrap;
+    /*justify-content:space-between;*/
+    /*align-items: center;*/
+    /*border: 5px solid red;*/
+}
+
+span.zero{
+    width:50%;
+    justify-content:center;;
+}
+
+.orange{
+    background-color: orange;
+    text:white;
+}
+
+.answer{
+    background-color: black;
+    color:white;
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*font-size: 8em;*/
+    text-align: right;
+    text-overflow: clip;
+}
