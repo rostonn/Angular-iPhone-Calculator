@@ -1,27 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CalculatorService } from './calculator.service';
 
 @Component({
-//   moduleId: module.id,
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css'],
-  providers: [CalculatorService]
+    selector: 'app-root',
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.css'],
+    providers: [CalculatorService]
 })
 export class AppComponent implements OnInit {
-  title = 'Angular-iPhone-Calculator' ;
-  answer: any = 0 ;
-  second: any = 0 ;
-  secondOn: boolean = false;
-  operator: string = '';
-  show: any = 0;
-  equals: boolean = false;
-  elements = ['AC', '+/-', '%', '/', 7, 8, 9, 'x', 4, 5, 6, '-', 1, 2, 3, '+', 0, '.', '='];
-  showAnswer:any = [];
-  constructor(private calculatorService: CalculatorService) {}
-  ngOnInit() { }
+    title = 'Angular-iPhone-Calculator';
+    answer: any = 0;
+    second: any = 0;
+    secondOn: boolean = false;
+    operator: string = '';
+    show: any = 0;
+    equals: boolean = false;
+    elements = ['C', '+/-', '%', '/', 7, 8, 9, 'x', 4, 5, 6, '-', 1, 2, 3, '+', 0, '.', '='];
+    showAnswer: any = [];
+    constructor(private calculatorService: CalculatorService) { }
+    ngOnInit() { }
 
-  calculate(item: any) {
+    @HostListener('window:keyup', ['$event'])
+    calculateKey(e: KeyboardEvent) {
+        if (!isNaN(Number(e.key))) {
+            this.calculate(Number(e.key));
+        }
+        switch (e.key) {
+            case '*':
+                this.calculate('x');
+                break;
+            case 'Escape':
+                this.calculate('C');
+                break;
+            case 'Enter':
+                this.calculate('=');
+                break;
+            case '/':
+                this.calculate('/');
+                break;
+            case '+':
+                this.calculate('+');
+                break;
+            case '.':
+                this.calculate('.');
+                break;
+            case '=':
+                this.calculate('=');
+                break;
+            case '%':
+                this.calculate('%');
+                break;
+        }
+    }
+
+    calculate(item: any) {
         if (typeof item === 'number') {
             if (this.secondOn) {
                 this.show = this.second = Number('' + this.second + item);
@@ -64,26 +96,18 @@ export class AppComponent implements OnInit {
                 this.show = this.answer = this.calculatorService.calculate(this.answer, this.operator, this.second);
                 this.secondOn = false;
             }
-
             this.operator = item;
         }
-        // this.showAnswer = (this.show.toString()).split('');
-        // // Add in padding
-        // let l = 8 - this.showAnswer.length;
-        // for(var i = 0; i < l; i++){
-        //     this.showAnswer.unshift('');
-        // }
-        // this.showAnswer.push('');
     }
 
-    getStyle (item: number) {
+    getStyle(item: number) {
         if (item === 0) {
             return 'zero';
-        } 
+        }
 
     }
-    getColor (item: number) {
-        if ( item % 4 === 0 || item === 19) {
+    getColor(item: number) {
+        if (item % 4 === 0 || item === 19) {
             return 'orange';
         } else {
             return 'grey';
