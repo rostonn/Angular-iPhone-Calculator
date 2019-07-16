@@ -3,7 +3,7 @@
 </div>
 <div class="calculatorBox">
   <span class="square" *ngFor="let item of elements; index as i" [ngClass]="getStyle(item)"
-    [style.background-color]="getColor(i+1)" (click)="calculate(item)" (keyup)="calculateKey($event)">
+    [style.background-color]="getColor(i+1)" (click)="calculate(item)">
     <span class="number">
       {{item}}
     </span>

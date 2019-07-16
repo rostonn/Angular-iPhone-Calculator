@@ -41,6 +41,9 @@ export class AppComponent implements OnInit {
             case '+':
                 this.calculate('+');
                 break;
+            case '-':
+                this.calculate('-');
+                break;
             case '.':
                 this.calculate('.');
                 break;
@@ -63,12 +66,13 @@ export class AppComponent implements OnInit {
                 // Show Second Number
                 this.show = item;
             } else if (this.equals) {
-                this.show = this.answer = item;
+                this.answer = item;
+                this.show = this.calculatorService.convert(this.answer);
                 this.equals = false;
             } else {
                 this.show = this.answer = Number('' + this.answer + item);
             }
-        } else if (item === 'AC') {
+        } else if (item === 'C') {
             this.show = this.answer = 0;
             this.operator = '';
             this.second = 0;
@@ -79,7 +83,10 @@ export class AppComponent implements OnInit {
             this.show = this.answer /= 100;
         } else if (item === '=') {
             if (this.operator) {
-                this.show = this.answer = this.calculatorService.calculate(this.answer, this.operator, this.second);
+                this.answer = this.calculatorService.calculate(this.answer, this.operator, this.second);
+                
+                this.show = this.calculatorService.convert(this.answer);
+
                 this.operator = '';
                 this.secondOn = false;
                 this.equals = true;
@@ -93,11 +100,14 @@ export class AppComponent implements OnInit {
             }
         } else {
             if (this.operator && this.secondOn) {
-                this.show = this.answer = this.calculatorService.calculate(this.answer, this.operator, this.second);
+                this.answer = this.calculatorService.calculate(this.answer, this.operator, this.second);
+                this.show = this.calculatorService.convert(this.answer);
+
                 this.secondOn = false;
             }
             this.operator = item;
         }
+
     }
 
     getStyle(item: number) {
